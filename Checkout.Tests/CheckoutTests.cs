@@ -90,7 +90,7 @@ namespace Checkout.Tests
             Assert.AreEqual(130, till.Total());
         }
 
-                [Test]
+        [Test]
         public void Given_TwoAAItems_TotalPrice_ShouldBe_110()
         {
             // Arrange

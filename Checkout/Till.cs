@@ -35,15 +35,15 @@ namespace Checkout
            return total;
         }
 
-static double AddItemD(double total, KeyValuePair<char, int> item)
-{
-    if (item.Key.Equals('D'))
-    {
-        total += 15 * item.Value;
-    }
+        static double AddItemD(double total, KeyValuePair<char, int> item)
+        {
+            if (item.Key.Equals('D'))
+            {
+                total += 15 * item.Value;
+            }
 
-    return total;
-}
+            return total;
+        }
 
 
         private static double AddItemC(double total, KeyValuePair<char, int> item)
@@ -63,7 +63,7 @@ static double AddItemD(double total, KeyValuePair<char, int> item)
             if(items == 0) return 0;
 
             var cost = items * 30;
-                var numberOfPairs =  items / 2;
+            var numberOfPairs =  items / 2;
 
             // discount is 15 on each pair
             var discount = numberOfPairs * 15;
