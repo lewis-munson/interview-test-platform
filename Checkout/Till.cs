@@ -10,7 +10,8 @@ namespace Checkout
         private Dictionary<char, int> _items = new Dictionary<char, int>{
             {'A', 0},
             {'B', 0},
-            {'C', 0}
+            {'C', 0},
+            {'D', 0}
         };
 
         public double Total() 
@@ -58,7 +59,7 @@ namespace Checkout
 
         public double AddB(string numberItems)
         {
-            double items = Double.Parse(numberItems);
+            int items = int.Parse(numberItems);
 
             if(items == 0) return 0;
 

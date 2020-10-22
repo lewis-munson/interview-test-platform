@@ -39,7 +39,7 @@ namespace Checkout.Tests
             var till = new Till();
 
             // Act
-            new Till().Scan("AB");
+            till.Scan("AB");
             
             // Assert
             Assert.AreEqual(80.0, till.Total());
