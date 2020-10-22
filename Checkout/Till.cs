@@ -21,11 +21,11 @@ namespace Checkout
             {
                 if(item.Key.Equals('A'))
                 {
-                    total += 50 * item.Value;
+                    total = AddItemA(total, item);
                 }
                 else if(item.Key.Equals('B'))
                 {
-                    total += AddB(item.Value.ToString());
+                    total += AddItemB(item.Value.ToString());
                 } 
                 else if(item.Key.Equals('C'))
                 {
@@ -51,13 +51,13 @@ namespace Checkout
         {
             if (item.Key.Equals('C'))
             {
-                total += 15 * item.Value;
+                total += 20 * item.Value;
             }
 
             return total;
         }
 
-        public double AddB(string numberItems)
+        public double AddItemB(string numberItems)
         {
             int items = int.Parse(numberItems);
 
@@ -69,6 +69,18 @@ namespace Checkout
             // discount is 15 on each pair
             var discount = numberOfPairs * 15;
             return cost - discount;
+        }
+
+        private static double AddItemA(double total, KeyValuePair<char, int> item)
+        {
+            if (item.Key.Equals('A'))
+            {
+                int numberOfTriplets = item.Value / 3;
+                total += 50 * item.Value;
+                total -= 20 * numberOfTriplets;
+            }
+
+            return total;
         }
 
         public void Scan(string items)
