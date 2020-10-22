@@ -19,68 +19,51 @@ namespace Checkout
             double total = 0;
             foreach(var item in _items)
             {
-                if(item.Key.Equals('A'))
+                char product = item.Key;
+                int amount = item.Value;
+                switch (product)
                 {
-                    total = AddItemA(total, item);
+                    case 'A':
+                        total += CostForA(amount);
+                        break;
+                    case 'B':
+                        total += CostForB(amount);
+                        break;
+                    case 'C':
+                        total += CostForC(amount);
+                        break;
+                    case 'D':
+                        total += CostForD(amount);
+                        break;
                 }
-                else if(item.Key.Equals('B'))
-                {
-                    total += AddItemB(item.Value.ToString());
-                } 
-                else if(item.Key.Equals('C'))
-                {
-                    total = AddItemC(total, item);
-                }
-                else total = AddItemD(total, item);
             } 
            return total;
         }
 
-        static double AddItemD(double total, KeyValuePair<char, int> item)
+        public double CostForA(int items)
         {
-            if (item.Key.Equals('D'))
-            {
-                total += 15 * item.Value;
-            }
-
-            return total;
-        }
-
-
-        private static double AddItemC(double total, KeyValuePair<char, int> item)
-        {
-            if (item.Key.Equals('C'))
-            {
-                total += 20 * item.Value;
-            }
-
-            return total;
-        }
-
-        public double AddItemB(string numberItems)
-        {
-            int items = int.Parse(numberItems);
-
-            if(items == 0) return 0;
-
-            var cost = items * 30;
-            var numberOfPairs =  items / 2;
-
-            // discount is 15 on each pair
-            var discount = numberOfPairs * 15;
+            double cost = 50 * items;
+            int numberOfTriplets = items / 3;
+            double discount = 20 * numberOfTriplets;
             return cost - discount;
         }
 
-        private static double AddItemA(double total, KeyValuePair<char, int> item)
+        public double CostForB(int items)
         {
-            if (item.Key.Equals('A'))
-            {
-                int numberOfTriplets = item.Value / 3;
-                total += 50 * item.Value;
-                total -= 20 * numberOfTriplets;
-            }
+            double cost = items * 30;
+            int numberOfPairs = items / 2;
+            double discount = numberOfPairs * 15;
+            return cost - discount;
+        }
 
-            return total;
+        public double CostForC(int items)
+        {
+            return 20 * items;
+        }
+
+        public double CostForD(int items)
+        {
+            return 15 * items;
         }
 
         public void Scan(string items)
