@@ -68,6 +68,7 @@ namespace Checkout
 
         public void Scan(string items)
         {
+            // TODO: don't allow 7+ of C
             foreach(var item in items)
             {
                 _items[item]++;  
