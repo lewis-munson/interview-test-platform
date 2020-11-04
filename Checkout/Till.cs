@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Checkout
 {
     public class Till
     {
+        string logLocation = "E:\\temp\\log.txt";
 
         private Dictionary<char, int> _items = new Dictionary<char, int>{
             {'A', 0},
@@ -68,10 +70,32 @@ namespace Checkout
 
         public void Scan(string items)
         {
-            // TODO: don't allow 7+ of C
-            foreach(var item in items)
+            try
             {
-                _items[item]++;  
+                Logging.Log(items, logLocation);
+                
+                string errorMessage = "";
+                foreach (var item in items)
+                {
+                    if (!_items.ContainsKey(item))
+                    {
+                        Console.WriteLine("Invalid item "+item+" in cart. Please go to another register");
+                        Logging.Log("Invalid item " + item + " in cart. Please go to another register", logLocation);
+                        continue;
+                    }
+                    _items[item]++;
+                    if (_items['C'] > 6)
+                    {
+                        _items['C']--;
+                        errorMessage = "Too many C's in the cart";
+                    }
+                }
+                Console.WriteLine(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                Logging.Log(ex.ToString(), logLocation);
+                throw;
             }
         }
     }

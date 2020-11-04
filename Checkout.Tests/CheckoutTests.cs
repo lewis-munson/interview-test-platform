@@ -97,6 +97,45 @@ namespace Checkout.Tests
             Assert.AreEqual(130, till.Total());
         }
 
+        [Test]
+        public void Given_AAAAABBB_TotalPrice_ShouldBe_305()
+        {
+            // Arrange
+            Till till = new Till();
+
+            // Act
+            till.Scan("BAAABAAB");
+
+            // Assert
+            Assert.AreEqual(305, till.Total());
+        }
+
+        [Test]
+        public void Given_CCCCCCC_TotalPrice_ShouldBe_120()
+        {
+            // Arrange
+            Till till = new Till();
+
+            // Act
+            till.Scan("CCCCCCC");
+
+            // Assert
+            Assert.AreEqual(120, till.Total());
+        }
+
+        [Test]
+        public void Given_InvalidItem_LogError()
+        {
+            // Arrange
+            Till till = new Till();
+
+            // Act
+            till.Scan("ABECD");
+
+            // Assert
+            Assert.AreEqual(115, till.Total());
+        }
+
         /*[Test]
         public void Given_TwoAAItems_TotalPrice_ShouldBe_110()
         {
